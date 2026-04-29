@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>怡如工具導覽集</title>
+  <!-- 引入 Google Fonts：Poppins 用於英數，Noto Sans TC 用於中文 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ── 基礎重置與變數 ── */
+    :root {
+      --primary-color: #1a3830;
+      --secondary-color: #5a7a72;
+      --accent-color: #6db8a8;
+      --bg-gradient: linear-gradient(135deg, #f2f9f6 0%, #e3f0ee 100%);
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --border-color: rgba(200, 223, 217, 0.6);
+      --shadow-sm: 0 2px 8px rgba(30, 90, 75, 0.04);
+      --shadow-hover: 0 12px 24px rgba(30, 90, 75, 0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+      background: var(--bg-gradient);
+      color: #1a1a18;
+      min-height: 100vh;
+      /* 縮小上下留白，讓畫面能容納在單一螢幕內 */
+      padding: 2rem 1.5rem 1.5rem;
+      background-attachment: fixed; 
+      /* 確保內容居中且不會超過視窗高度時出現滾動條（視螢幕大小而定） */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    /* ── Header ── */
+    .hero {
+      /* 縮小 Header 的內外間距 */
+      padding: 0.5rem 0 0.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      background: linear-gradient(120deg, #1a3830, #40826d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.3rem;
+    }
+    .hero p {
+      font-size: 1rem;
+      color: var(--secondary-color);
+      font-weight: 500;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 1.15rem; /* 放大了字體 */
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #000000; /* 改為黑色 */
+      /* 縮小標題間距 */
+      margin: 1.5rem 0 0.8rem;
+    }
+
+    /* ── Tool grid ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      /* 微調卡片間距 */
+      gap: 14px;
+    }
+
+    .tool-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      /* 稍微縮小卡片內距以節省垂直空間 */
+      padding: 1.2rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .tool-card:hover {
+      border-color: var(--accent-color);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-5px);
+    }
+    .tool-card:active {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tool-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      transition: transform 0.3s ease;
+    }
+    
+    .tool-card:hover .tool-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .ic-teal   { background: #d8f3e8; color: #2d8a6b; }
+    .ic-blue   { background: #e0f2fe; color: #0284c7; }
+    .ic-amber  { background: #fef3c7; color: #d97706; }
+    .ic-purple { background: #f3e8ff; color: #9333ea; }
+    .ic-coral  { background: #fee2e2; color: #ef4444; }
+    .ic-pink   { background: #fce7f3; color: #db2777; }
+    .ic-green  { background: #dcfce7; color: #16a34a; }
+
+    .tool-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      line-height: 1.3;
+    }
+    .tool-desc {
+      font-size: 0.85rem;
+      color: var(--secondary-color);
+      line-height: 1.5;
+    }
+
+    /* ── Bottom quick links ── */
+    .bottom-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 0.2rem 0 0;
+    }
+
+    .link-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .link-pill:hover { 
+      transform: translateY(-2px); 
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      filter: brightness(1.05);
+    }
+    .link-pill:active { 
+      transform: translateY(0); 
+      filter: brightness(0.95); 
+    }
+    .link-pill svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .pill-github   { background: #24292e; color: #ffffff; }
+    .pill-canva    { background: #00c4cc; color: #ffffff; border: 1px solid #00a4ab; }
+    .pill-firebase { background: #ffca28; color: #1f2937; border: 1px solid #f5b000; }
+    .pill-claude   { background: #d97757; color: #ffffff; }
+    .pill-openai   { background: #10a37f; color: #ffffff; }
+    .pill-youtube  { background: #ff0000; color: #ffffff; }
+    .pill-default  { background: #3a5a52; color: #ffffff; }
+
+    /* ── Footer note ── */
+    .footer-note {
+      margin-top: 2.5rem; /* 縮小底部距離 */
+      font-size: 0.8rem;
+      color: #8aada6;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* ── 動畫效果 ── */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .grid > a:nth-child(1) { animation: fadeIn 0.4s ease-out backwards; }
+    .grid > a:nth-child(2) { animation: fadeIn 0.5s ease-out backwards; }
+    .grid > a:nth-child(3) { animation: fadeIn 0.6s ease-out backwards; }
+    .grid > a:nth-child(4) { animation: fadeIn 0.7s ease-out backwards; }
+    .grid > a:nth-child(5) { animation: fadeIn 0.8s ease-out backwards; }
+    .grid > a:nth-child(6) { animation: fadeIn 0.9s ease-out backwards; }
+
+    /* 響應式微調 */
+    @media (max-width: 600px) {
+      body { padding: 1.5rem 1rem 2rem; justify-content: flex-start; }
+      .hero h1 { font-size: 1.8rem; }
+      .grid { grid-template-columns: 1fr; gap: 12px; }
+      .tool-card { flex-direction: row; align-items: center; padding: 1rem; gap: 14px; }
+      .tool-icon { width: 44px; height: 44px; font-size: 22px; }
+      .tool-desc { font-size: 0.82rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ═══ Header ═══ -->
+  <div class="hero">
+    <h1>怡如工具導覽集</h1>
+    <p>點擊卡片直接開啟對應功能頁面</p>
+  </div>
+
+  <!-- ═══ 教學應用工具 ═══ -->
+  <div class="section-label">AI協作完成工具</div>
+  <div class="grid">
+
+    <a class="tool-card" href="https://yijuchen243.github.io/tscvs" target="_blank">
+      <div class="tool-icon ic-teal">🍱</div>
+      <div>
+        <div class="tool-name">檢定點餐平台</div>
+        <div class="tool-desc">tscvs — 實習處檢定專用點餐系統</div>
+      </div>
+    </a>
+   
+    <a class="tool-card" href="https://yijuchen243.github.io/newseat2" target="_blank">
+      <div class="tool-icon ic-blue">📐</div>
+      <div>
+        <div class="tool-name">導師排座位系統</div>
+        <div class="tool-desc">newseat2 — 為導師量身打造座位排列工具</div>
+      </div>
+    </a>
+   
+    <a class="tool-card" href="https://yijuchen243.github.io/test_seating" target="_blank">
+      <div class="tool-icon ic-amber">🧪</div>
+      <div>
+        <div class="tool-name">雲端段考座位協作</div>
+        <div class="tool-desc">test_seating — 教務處考試專用</div>
+      </div>
+    </a>
+
+    <a class="tool-card" href="https://yijuchen243.github.io/draw_lots" target="_blank">
+      <div class="tool-icon ic-coral">🎲</div>
+      <div>
+        <div class="tool-name">抽籤工具</div>
+        <div class="tool-desc">draw_lots — 上課隨機抽籤工具</div>
+      </div>
+    </a>
+
+    <a class="tool-card" href="https://yijuchen243.github.io/YTplayer" target="_blank">
+      <div class="tool-icon ic-pink">▶️</div>
+      <div>
+        <div class="tool-name">影片播放器</div>
+        <div class="tool-desc">YTplayer — 打造專屬個人無廣告YouTube</div>
+      </div>
+    </a>
+
+    <a class="tool-card" href="https://yijuchen243.github.io/srt" target="_blank">
+      <div class="tool-icon ic-teal">💬</div>
+      <div>
+        <div class="tool-name">轉字幕工具</div>
+        <div class="tool-desc">srt — 影片與音檔字幕處理工具</div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ═══ 常用平台（底部連結）═══ -->
+  <div class="section-label" style="margin-top:2rem">開發設計常用平台</div>
+  <div class="bottom-links">
+
+    <a class="link-pill pill-github" href="https://github.com/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+      </svg>
+      GitHub
+    </a>
+
+    <a class="link-pill pill-canva" href="https://www.canva.com" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M8 12h8M12 8v8"/>
+      </svg>
+      Canva
+    </a>
+
+    <a class="link-pill pill-firebase" href="https://console.firebase.google.com" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 20L8.5 4l4 7 3-5 4 14H4z"/>
+      </svg>
+      Firebase
+    </a>
+
+    <a class="link-pill pill-claude" href="https://claude.ai/new" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="3" width="20" height="18" rx="2"/>
+        <path d="M8 10h8M8 14h5"/>
+      </svg>
+      Claude
+    </a>
+
+    <a class="link-pill pill-openai" href="https://platform.openai.com/login" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 17H2l4-7h12l4 7z"/>
+        <path d="M6 17L10 10"/><path d="M18 17L14 10"/>
+      </svg>
+      OpenAI
+    </a>
+
+    <a class="link-pill pill-youtube" href="https://www.youtube.com" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.4 19.54C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+        <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
+      </svg>
+      YouTube
+    </a>
+
+  </div>
+
+  <p class="footer-note">© YijuChen243 · 個人教學工具導覽頁</p>
+
+</div>
+</body>
+</html>
